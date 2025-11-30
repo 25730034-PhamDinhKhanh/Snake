@@ -20,7 +20,7 @@ void VeKhung(){
         for (int j = MINX ; j<=MAXY ; j++)
             if ((i==MINX) || (i==MAXX) || (j==MINY) || (j==MAXY)){
             gotoxy(i,j);
-            printf("+");
+            printf("=");
         }
 }
 class CONRAN{
