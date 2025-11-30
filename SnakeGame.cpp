@@ -1,122 +1,70 @@
-//
-// Created by Phạm Đình Khánh on 11/30/2025.
-//
-
 #include <iostream>
-#include <conio.h>
 #include <windows.h>
-#include <cstdio>
-
+#include <cstdlib>
+#include <conio.h>
 using namespace std;
-
-struct Node {
-    int x, y;
+void gotoxy( int column, int line );
+struct Point{
+    int x,y;
 };
-
-struct Snake {
-    Node A[100];
-    int Leng;
-};
-
-void gotoxy(int x, int y) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD pos;
-    pos.X = x;
-    pos.Y = y;
-    SetConsoleCursorPosition(hConsole, pos);
-}
-
-void Init(Snake &snake) {
-    snake.Leng = 7;
-    
-    snake.A[0].x = 9; snake.A[0].y = 5;
-    snake.A[1].x = 8; snake.A[1].y = 5;
-    snake.A[2].x = 7; snake.A[2].y = 5;
-    snake.A[3].x = 7; snake.A[3].y = 4;
-    snake.A[4].x = 7; snake.A[4].y = 3;
-    snake.A[5].x = 6; snake.A[5].y = 3;
-    snake.A[6].x = 5; snake.A[6].y = 3;
-}
-
-void Draw(Snake snake) {
-    for (int i = 0; i < snake.Leng; i++) {
-        gotoxy(snake.A[i].x * 2, snake.A[i].y);
-        printf("%c%c", 219, 219);
+class CONRAN{
+public:
+    struct Point A[100];
+    int DoDai;
+    CONRAN(){
+        DoDai = 3;
+        A[0].x = 10; A[0].y = 10;
+        A[1].x = 11; A[1].y = 10;
+        A[2].x = 12; A[2].y = 10;
     }
-    gotoxy(40, 20);
-}
-
-void Run(Snake &snake, int dir) {
-    // doi cac dot than di theo dot dau
-    for (int i = snake.Leng - 1; i > 0; i--) {
-        snake.A[i] = snake.A[i - 1];
-    }
-
-    switch (dir) {
-        case 0: // sang phai
-            snake.A[0].x = snake.A[0].x + 1;
-            break;
-        case 1: // di xuong
-            snake.A[0].y = snake.A[0].y + 1;
-            break;
-        case 2: // sang trai
-            snake.A[0].x = snake.A[0].x - 1;
-            break;
-        case 3: // di len
-            snake.A[0].y = snake.A[0].y - 1;
-            break;
-    }
-}
-
-int main() {
-    Snake snake;
-    int dir = 0;
-    char ch = 0;
-
-    CONSOLE_CURSOR_INFO ci;
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    GetConsoleCursorInfo(hConsole, &ci);
-    ci.bVisible = FALSE;
-    SetConsoleCursorInfo(hConsole, &ci);
-
-    Init(snake);
-    system("cls");
-    Draw(snake);
-
-    while (1) {
-        if (kbhit()) {
-            ch = getch();
-            switch (ch) {
-                case 's': // di sang phai
-                    dir = 0;
-                    break;
-                case 'z': // di xuong
-                    dir = 1;
-                    break;
-                case 'a': // di sang trai
-                    dir = 2;
-                    break;
-                case 'w': // di len
-                    dir = 3;
-                    break;
-                case 27: // ESC de thoat
-                    return 0;
-            }
+    void Ve(){
+        for (int i = 0; i < DoDai; i++){
+            gotoxy(A[i].x,A[i].y);
+            cout<<"X";
         }
+    }
+    void DiChuyen(int Huong){
+        for (int i = DoDai-1; i>0;i--)
+            A[i] = A[i-1];
+        if (Huong==0) A[0].x = A[0].x + 1;
+        if (Huong==1) A[0].y = A[0].y + 1;
+        if (Huong==2) A[0].x = A[0].x - 1;
+        if (Huong==3) A[0].y = A[0].y - 1;
 
-        // xoa duoi con ran cu
-        int tailIndex = snake.Leng - 1;
-        gotoxy(snake.A[tailIndex].x * 2, snake.A[tailIndex].y);
-        printf("  ");
+    }
+};
 
-        // cap nhat vi tri
-        Run(snake, dir);
+int main()
+{
+    CONRAN r;
+    int Huong = 0;
+    char t;
 
-        // ve lai con ran
-        Draw(snake);
-
-        Sleep(100);
+    while (1){
+        if (kbhit()){
+            t = getch();
+            if (t=='a') Huong = 2;
+            if (t=='w') Huong = 3;
+            if (t=='d') Huong = 0;
+            if (t=='x') Huong = 1;
+        }
+        system("cls");
+        r.Ve();
+        r.DiChuyen(Huong);
+        Sleep(300);
     }
 
     return 0;
 }
+
+
+void gotoxy( int column, int line )
+  {
+  COORD coord;
+  coord.X = column;
+  coord.Y = line;
+  SetConsoleCursorPosition(
+    GetStdHandle( STD_OUTPUT_HANDLE ),
+    coord
+    );
+  }
