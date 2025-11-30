@@ -28,8 +28,7 @@ void gotoxy(int x, int y) {
 
 void Init(Snake &snake) {
     snake.Leng = 7;
-
-    // ve con ran hinh chu "cong" cho de nhin
+    
     snake.A[0].x = 9; snake.A[0].y = 5;
     snake.A[1].x = 8; snake.A[1].y = 5;
     snake.A[2].x = 7; snake.A[2].y = 5;
@@ -40,12 +39,11 @@ void Init(Snake &snake) {
 }
 
 void Draw(Snake snake) {
-    // ve toan bo con ran
     for (int i = 0; i < snake.Leng; i++) {
         gotoxy(snake.A[i].x * 2, snake.A[i].y);
         printf("%c%c", 219, 219);
     }
-    gotoxy(40, 20); // dua con tro ve 1 vi tri khac
+    gotoxy(40, 20);
 }
 
 void Run(Snake &snake, int dir) {
@@ -54,7 +52,6 @@ void Run(Snake &snake, int dir) {
         snake.A[i] = snake.A[i - 1];
     }
 
-    // cap nhat vi tri dau ran theo huong di chuyen
     switch (dir) {
         case 0: // sang phai
             snake.A[0].x = snake.A[0].x + 1;
@@ -73,10 +70,9 @@ void Run(Snake &snake, int dir) {
 
 int main() {
     Snake snake;
-    int dir = 0;   // 0: phai, 1: xuong, 2: trai, 3: len
-    char ch = 0;   // phim nhap tu ban phim
+    int dir = 0;
+    char ch = 0;
 
-    // an con tro chuot cho dep (tuy IDE, co the khong can)
     CONSOLE_CURSOR_INFO ci;
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleCursorInfo(hConsole, &ci);
@@ -88,7 +84,6 @@ int main() {
     Draw(snake);
 
     while (1) {
-        // neu co phim nhan thi doc
         if (kbhit()) {
             ch = getch();
             switch (ch) {
@@ -120,7 +115,7 @@ int main() {
         // ve lai con ran
         Draw(snake);
 
-        Sleep(100); // delay 1 chut cho de nhin
+        Sleep(100);
     }
 
     return 0;
