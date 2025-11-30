@@ -1,9 +1,5 @@
 //
-// Created by khanh.pham3 on 11/30/2025.
-//
-
-//
-// Created by khanh.pham3 on 11/30/2025.
+// Created by Phạm Đình Khánh on 11/30/2025.
 //
 
 #include <iostream>
