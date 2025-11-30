@@ -7,6 +7,7 @@ using namespace std;
 #define MINY 2
 #define MAXX 35
 #define MAXY 20
+
 void gotoxy( int column, int line );
 struct Point{
     int x,y;
@@ -16,7 +17,7 @@ void VeKhung(){
         for (int j = MINX ; j<=MAXY ; j++)
             if ((i==MINX) || (i==MAXX) || (j==MINY) || (j==MAXY)){
             gotoxy(i,j);
-            printf("+");
+            printf("=");
         }
 }
 class CONRAN{
