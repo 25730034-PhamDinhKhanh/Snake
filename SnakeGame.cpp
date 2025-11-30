@@ -3,14 +3,18 @@
 #include <cstdlib>
 #include <conio.h>
 using namespace std;
+
 #define MINX 2
 #define MINY 2
 #define MAXX 35
 #define MAXY 20
+
 void gotoxy( int column, int line );
 struct Point{
     int x,y;
 };
+
+//Ham ve khung
 void VeKhung(){
     for (int i = MINX ; i<=MAXX ; i++)
         for (int j = MINX ; j<=MAXY ; j++)
