@@ -65,7 +65,6 @@ int main()
             if (t=='x') Huong = 1;
         }
         system("cls");
-        VeKhung();
         r.Ve();
         r.DiChuyen(Huong);
         Sleep(300);
